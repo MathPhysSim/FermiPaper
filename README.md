@@ -6,3 +6,6 @@ A new implementation of the NAF with doule Q learning:
 
 A new implementation of a AE-dyna:
 ![NAF2_training](AE-DYNA_observables.png)
+
+A new implementation of a AE-dyna:
+![NAF2_training](ME-TRPO_observables.png)

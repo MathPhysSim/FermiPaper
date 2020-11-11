@@ -112,12 +112,12 @@ def plot_observables(data, label='Experiment', **kwargs):
     ax.set_ylabel('rewards tests')
     # plt.tw
     ax.grid(True)
-    ax2 = ax.twinx()
-
-    color = 'lime'
-    ax2.set_ylabel(r'- log(std($p_\pi$))', color=color)   # we already handled the x-label with ax1
-    ax2.tick_params(axis='y', labelcolor=color)
-    ax2.plot(length_all, color=color)
+    if length_all:
+        ax2 = ax.twinx()
+        color = 'lime'
+        ax2.set_ylabel(r'- log(std($p_\pi$))', color=color)   # we already handled the x-label with ax1
+        ax2.tick_params(axis='y', labelcolor=color)
+        ax2.plot(length_all, color=color)
     fig.align_labels()
 
     if 'save_name' in kwargs:
