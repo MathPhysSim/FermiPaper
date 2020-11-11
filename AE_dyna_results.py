@@ -63,7 +63,6 @@ def plot_results(data, label='Verification', **kwargs):
         # stds = np.array(stds)
 
         iterations, finals, means, stds = read_rewards(rewards)
-        print(read_rewards(rewards))
         plot_suffix = label  # , Fermi time: {env.TOTAL_COUNTER / 600:.1f} h'
 
         fig, axs = plt.subplots(2, 1, sharex=True)

@@ -87,7 +87,7 @@ dynamic_wait_time = lambda it, ep: (it + 1) % 1 == 0  #
 # dynamic_wait_time = lambda it, ep: (it + 1) % 1 == 0  #
 
 # Create the logging directory:
-project_directory = 'Data_logging/Model_size/'
+project_directory = 'Data_logging/Simulation/Stable'
 
 hyp_str_all = '-nr_steps_' + str(steps_per_env) + '-cr_lr' + str(cr_lr) + '-crit_it_' + str(
     critic_iter) + '-d_' + str(delta) + '-conj_iters_' + str(conj_iters) + '-n_ep_' + str(num_epochs) + \
@@ -263,7 +263,6 @@ class MonitoringEnv(gym.Wrapper):
         # we only scale for the network training:
         # if not self.test_env_flag:
         #     rew = rew * 2 + 1
-
 
         if not self.verification:
             '''Rescale reward from [-1,0] to [-1,1] for the training of the network in case of tests'''
@@ -644,7 +643,7 @@ class NetworkEnv(gym.Wrapper):
             #     rew = -1
             rew = np.clip(rew, -1, 1)
             if not self.verification:
-                rew = (rew-1)/2
+                rew = (rew - 1) / 2
 
             # obs_real, rew_real, _, _ = self.env.step(action)
             # obs, rew, self.done, _ = self.env.step(action)
@@ -677,17 +676,17 @@ class NetworkEnv(gym.Wrapper):
 
     def visualize(self, action=[np.array([0, 0, 0, 0])]):
         delta = 0.05
-        x = np.arange(-1,1, delta)
-        y = np.arange(-1,1, delta)
+        x = np.arange(-1, 1, delta)
+        y = np.arange(-1, 1, delta)
         X, Y = np.meshgrid(x, y)
         if self.number_models == 5:
             for nr in range(self.number_models):
                 states = np.zeros(X.shape)
                 # print(self.number_models)
                 for i in range(len(x)):
-                    for j in  range(len(y)):
-                        states[i,j] = (self.model_func(np.array([x[i], y[j], 0.0, 0.0]), action,
-                                                          nr)[1])
+                    for j in range(len(y)):
+                        states[i, j] = (self.model_func(np.array([x[i], y[j], 0.0, 0.0]), action,
+                                                        nr)[1])
                 # plt.plot(np.array(states, dtype=object)[:, 1],)
                 plt.contour(states)
 
@@ -1029,10 +1028,10 @@ def METRPO(env_name, hidden_sizes=[32, 32], cr_lr=5e-3, num_epochs=50, gamma=0.9
         def anchor(self, lambda_anchor):
             '''regularise around initialised parameters after session has started'''
 
-            w1, b1,  w = self.get_weights()
+            w1, b1, w = self.get_weights()
 
             # get initial params to hold for future trainings
-            self.w1_init, self.b1_init,  self.w_out_init = w1, b1,  w
+            self.w1_init, self.b1_init, self.w_out_init = w1, b1, w
 
             loss_anchor = lambda_anchor[0] * tf.reduce_sum(tf.square(self.w1_init - self.layer_1_w.kernel))
             loss_anchor += lambda_anchor[1] * tf.reduce_sum(tf.square(self.b1_init - self.layer_1_w.bias))
@@ -1564,7 +1563,7 @@ def METRPO(env_name, hidden_sizes=[32, 32], cr_lr=5e-3, num_epochs=50, gamma=0.9
                 #     #     pass
 
         # save the data for plotting the collected data for the model
-        # env.save_current_buffer()
+        env.save_current_buffer()
 
         print('Ep:%d Rew:%.2f -- Step:%d' % (ep, np.mean(batch_rew), step_count))
 
@@ -1643,7 +1642,7 @@ def METRPO(env_name, hidden_sizes=[32, 32], cr_lr=5e-3, num_epochs=50, gamma=0.9
             # file_writer.flush()
 
             # Test the policy on simulated environment.
-            # dynamic_wait_time_count = dynamic_wait_time(ep)
+
             if dynamic_wait_time(it, ep):
                 print('Iterations: ', total_iterations)
 
@@ -1659,7 +1658,7 @@ def METRPO(env_name, hidden_sizes=[32, 32], cr_lr=5e-3, num_epochs=50, gamma=0.9
                 # for niky plot results of test -----------------------------
                 plot_results(env_test, label=label)
 
-                # env_test.save_current_buffer(info=label)
+                env_test.save_current_buffer(info=label)
 
                 print(' Test score: ', np.round(mn_test, 2), np.round(mn_test_std, 2),
                       np.round(mn_length, 2), np.round(mn_success, 2))
