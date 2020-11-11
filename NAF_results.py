@@ -78,11 +78,6 @@ def read_rewards(rewards0):
 
 
 def plot_results(rewards, rewards_s, plot_name):
-    # plotting
-    print('Now plotting')
-    # rewards = env.rewards
-    # initial_rewards = env.init_rewards
-    # print('initial_rewards :', initial_rewards)
 
     iterations, final_rews, mean_rews = read_rewards(rewards)
     iterations_s, final_rews_s, mean_rews_s = read_rewards(rewards_s)
@@ -126,28 +121,14 @@ def plot_results(rewards, rewards_s, plot_name):
     ax1.axhline(-0.05, ls=':', color=color)
     ax1.tick_params(axis='y', labelcolor=color)
 
-    # fig.tight_layout()
-    # plt.savefig(file_name + '_episodes.pdf')
 
     fig.align_labels()
     fig.tight_layout()
     # fig.suptitle('NonUniformImage class', fontsize='large')
     plt.savefig(plot_name + '_episodes.pdf')
+    plt.savefig(plot_name + '_episodes.png')
     plt.show()
 
-    # fig, ax = plt.subplots(1)
-    # color = 'blue'
-    # ax.plot(sum_rews, color)
-    # ax.set_ylabel('cum. reward', color=color)
-    # ax.set_xlabel('# episode')
-    # ax.tick_params(axis='y', labelcolor=color)
-    # ax1 = plt.twinx(ax)
-    # color = 'lime'
-    # ax1.plot(mean_rews, c=color)
-    # ax1.set_ylabel('mean reward', color=color)  # we already handled the x-label with ax1
-    # ax1.tick_params(axis='y', labelcolor=color)
-    # # plt.savefig(file_name + '_rewards.pdf')
-    # plt.show()
 
 
 label = 'FERMI_all_experiments_NAF'
@@ -207,6 +188,7 @@ def plot_convergence(losses, v_s, losses_s, v_s_s, label):
     ax1.plot(v_s, color=color)
     ax1.plot(v_s_s, color=color, ls=':')
     plt.savefig(label + 'convergence' + '.pdf')
+    plt.savefig(label + 'convergence' + '.png')
     plt.show()
 
 plot_convergence(losses, v_s, losses_s, v_s_s, label)

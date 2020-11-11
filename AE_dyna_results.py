@@ -69,6 +69,7 @@ def plot_results(data, label='Verification', **kwargs):
         # ax.set_ylim(ax1.get_ylim())
         if 'save_name' in kwargs:
             plt.savefig(kwargs.get('save_name') + '.pdf')
+            plt.savefig(kwargs.get('save_name') + '.png')
         plt.show()
 def plot_observables(data, label='Experiment', **kwargs):
     """plot observables during the test"""
@@ -118,6 +119,7 @@ def plot_observables(data, label='Experiment', **kwargs):
     ax2.plot(length_all, color=color)
     if 'save_name' in kwargs:
         plt.savefig(kwargs.get('save_name') + '.pdf')
+        plt.savefig(kwargs.get('save_name') + '.png')
     plt.show()
 
 # plot verification
