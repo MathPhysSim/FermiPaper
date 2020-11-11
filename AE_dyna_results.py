@@ -65,12 +65,13 @@ def plot_results(data, label='Verification', **kwargs):
         ax1.fill_between(x, means - stds, means + stds,
                          alpha=0.5, edgecolor=color, facecolor='#FF9848')
         ax1.plot(x, means, color=color)
-
+        fig.align_labels()
         # ax.set_ylim(ax1.get_ylim())
         if 'save_name' in kwargs:
             plt.savefig(kwargs.get('save_name') + '.pdf')
             plt.savefig(kwargs.get('save_name') + '.png')
         plt.show()
+
 def plot_observables(data, label='Experiment', **kwargs):
     """plot observables during the test"""
 
@@ -117,6 +118,7 @@ def plot_observables(data, label='Experiment', **kwargs):
     ax2.set_ylabel(r'- log(std($p_\pi$))', color=color)   # we already handled the x-label with ax1
     ax2.tick_params(axis='y', labelcolor=color)
     ax2.plot(length_all, color=color)
+    fig.align_labels()
     if 'save_name' in kwargs:
         plt.savefig(kwargs.get('save_name') + '.pdf')
         plt.savefig(kwargs.get('save_name') + '.png')
