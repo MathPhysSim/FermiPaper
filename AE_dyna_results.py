@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 label = "ME-TRPO"
-label = "AE-DYNA"
+# label = "AE-DYNA"
 if label == "ME-TRPO":
     # ME-TRPO results
     project_directory = 'Data_Experiments/2020_10_06_ME_TRPO_stable@FERMI/-nr_steps_15-cr_lr0.0001-crit_it_15-d_0.05-conj_iters_15-n_ep_28-mini_bs_500-m_bs_5-mb_lr_0.001-sim_steps_2000-m_iter_15-ensnr_9-init_45/'
@@ -12,32 +12,64 @@ else:
     # AE-Dyna results
     project_directory = 'Data_Experiments/2020_11_05_AE_Dyna@FERMI/-nr_steps_25-cr_lr-n_ep_13-m_bs_100-sim_steps_3000-m_iter_35-ensnr_3-init_200/'
 
+def read_rewards(rewards):
+    iterations_all = []
+    final_rews_all = []
+    mean_rews_all = []
+    stds = []
+
+
+
+    iterations = []
+    final_rews = []
+    mean_rews = []
+    for i in range(len(rewards)):
+        if len(rewards[i]) > 0:
+            final_rews.append(rewards[i][len(rewards[i]) - 1])
+            iterations.append(len(rewards[i]))
+            try:
+                mean_rews.append(np.sum(rewards[i][1:]))
+            except:
+                mean_rews.append([])
+            stds.append(np.std(rewards[i][1:]))
+
+    # iterations = np.mean(np.array(iterations_all), axis=0)
+    # final_rews = np.mean(np.array(final_rews_all), axis=0)
+    # mean_rews = np.mean(np.array(mean_rews_all), axis=0)
+
+    return np.array(iterations), np.array(final_rews), np.array(mean_rews), np.array(stds)
+
+
+
 def plot_results(data, label='Verification', **kwargs):
         '''plotting'''
         rewards = data['rews']
-        iterations = []
-        finals = []
-        means = []
-        stds = []
+        # iterations = []
+        # finals = []
+        # means = []
+        # stds = []
+        #
+        # for i in range(len(rewards)):
+        #     if (len(rewards[i]) > 1):
+        #         finals.append(rewards[i][-1])
+        #         means.append(np.mean(rewards[i][1:]))
+        #         stds.append(np.std(rewards[i][1:]))
+        #         iterations.append(len(rewards[i]))
+        #
+        # x = range(len(iterations))
+        # iterations = np.array(iterations)
+        # finals = np.array(finals)
+        # means = np.array(means)
+        # stds = np.array(stds)
 
-        for i in range(len(rewards)):
-            if (len(rewards[i]) > 1):
-                finals.append(rewards[i][-1])
-                means.append(np.mean(rewards[i][1:]))
-                stds.append(np.std(rewards[i][1:]))
-                iterations.append(len(rewards[i]))
-
-        x = range(len(iterations))
-        iterations = np.array(iterations)
-        finals = np.array(finals)
-        means = np.array(means)
-        stds = np.array(stds)
-
+        iterations, finals, means, stds = read_rewards(rewards)
+        print(read_rewards(rewards))
         plot_suffix = label  # , Fermi time: {env.TOTAL_COUNTER / 600:.1f} h'
 
         fig, axs = plt.subplots(2, 1, sharex=True)
 
         ax = axs[0]
+        x = range(len(iterations))
         ax.plot(x, iterations)
         ax.set_ylabel('Iterations (1)')
         ax.set_title(plot_suffix)
