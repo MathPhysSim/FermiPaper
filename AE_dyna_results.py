@@ -170,7 +170,8 @@ print(filename)
 
 filehandler = open(project_directory + filename, 'rb')
 object = pickle.load(filehandler)
-plot_results(object,label=label, save_name=label+'_verification')
+save_name = 'Figures/' + label+'_verification'
+plot_results(object,label=label, save_name=save_name)
 
 # plot observables
 
@@ -186,6 +187,6 @@ print(filename)
 
 filehandler = open(project_directory + filename, 'rb')
 object = pickle.load(filehandler)
-
-plot_observables(object, save_name=label+'_observables')
+save_name = 'Figures/' + label+'_observables'
+plot_observables(object, save_name=save_name)
 

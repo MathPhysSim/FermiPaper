@@ -49,12 +49,12 @@ states_s, actions_s, rewards_s, dones_s = load_pickle_logging(file_name_s)
 rewards_s = [rewards_s, rewards_s0]
 
 
-def read_rewards(rewards0):
+def read_rewards(rewards_in):
     iterations_all = []
     final_rews_all = []
     mean_rews_all = []
-    for k in range(len(rewards0)):
-        rewards = rewards0[k]
+    for k in range(len(rewards_in)):
+        rewards = rewards_in[k]
 
         iterations = []
         final_rews = []
@@ -77,10 +77,10 @@ def read_rewards(rewards0):
     return iterations, final_rews, mean_rews
 
 
-def plot_results(rewards, rewards_s, plot_name):
+def plot_results(rewards, rewards_single, **kwargs):
 
     iterations, final_rews, mean_rews = read_rewards(rewards)
-    iterations_s, final_rews_s, mean_rews_s = read_rewards(rewards_s)
+    iterations_s, final_rews_s, mean_rews_s = read_rewards(rewards_single)
 
     plot_suffix = ""  # f', number of iterations: {env.TOTAL_COUNTER}, Linac4 time: {env.TOTAL_COUNTER / 600:.1f} h'
     fig, axs = plt.subplots(2, 1, sharex=True)
@@ -125,8 +125,10 @@ def plot_results(rewards, rewards_s, plot_name):
     fig.align_labels()
     fig.tight_layout()
     # fig.suptitle('NonUniformImage class', fontsize='large')
-    plt.savefig(plot_name + '_episodes.pdf')
-    plt.savefig(plot_name + '_episodes.png')
+    if 'save_name' in kwargs:
+        save_name = kwargs.get('save_name')
+        plt.savefig(save_name + '_episodes.pdf')
+        plt.savefig(save_name + '_episodes.png')
     plt.show()
 
 
@@ -167,7 +169,7 @@ losses_s, v_s_s = read_losses_v_s([losses0, losses1], [v_s0, v_s1], 691)
 rewards_s = [rews0, rews1]
 
 
-def plot_convergence(losses, v_s, losses_s, v_s_s, label):
+def plot_convergence(losses, v_s, losses_s, v_s_s, label, **kwargs):
     fig, ax = plt.subplots()
     ax.set_title(label)
     ax.set_xlabel('steps')
@@ -188,12 +190,16 @@ def plot_convergence(losses, v_s, losses_s, v_s_s, label):
     ax1.plot(v_s, color=color)
     ax1.plot(v_s_s, color=color, ls=':')
     plt.tight_layout()
-    plt.savefig(label + '_convergence' + '.pdf')
-    plt.savefig(label + '_convergence' + '.png')
+    if 'save_name' in kwargs:
+        save_name = kwargs.get('save_name')
+        plt.savefig(save_name + '_convergence' + '.pdf')
+        plt.savefig(save_name + '_convergence' + '.png')
     plt.show()
 
-plot_convergence(losses, v_s, losses_s, v_s_s, label)
+label = 'FERMI_all_experiments_NAF'
+save_name = 'Figures/' + label
+plot_convergence(losses, v_s, losses_s, v_s_s, label=label, save_name=save_name)
 
 label = 'FERMI_all_experiments_NAF'
-
-plot_results(rewards, rewards_s, label)
+save_name = 'Figures/' + label
+plot_results(rewards, rewards_s, save_name=save_name)
