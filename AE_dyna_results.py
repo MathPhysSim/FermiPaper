@@ -119,6 +119,7 @@ def plot_observables(data, label='Experiment', **kwargs):
     ax2.tick_params(axis='y', labelcolor=color)
     ax2.plot(length_all, color=color)
     fig.align_labels()
+
     if 'save_name' in kwargs:
         plt.savefig(kwargs.get('save_name') + '.pdf')
         plt.savefig(kwargs.get('save_name') + '.png')
