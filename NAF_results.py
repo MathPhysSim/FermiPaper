@@ -176,7 +176,7 @@ def plot_convergence(losses, v_s, losses_s, v_s_s, label):
     ax.semilogy(losses, color=color)
     ax.semilogy(losses_s, color=color, ls=':')
     ax.tick_params(axis='y', labelcolor=color)
-    ax.set_ylabel('td_loss', color=color)
+    ax.set_ylabel('Bellman error', color=color)
     # ax.set_ylim(0, 1)
 
     ax1 = plt.twinx(ax)
@@ -187,8 +187,9 @@ def plot_convergence(losses, v_s, losses_s, v_s_s, label):
     ax1.tick_params(axis='y', labelcolor=color)
     ax1.plot(v_s, color=color)
     ax1.plot(v_s_s, color=color, ls=':')
-    plt.savefig(label + 'convergence' + '.pdf')
-    plt.savefig(label + 'convergence' + '.png')
+    plt.tight_layout()
+    plt.savefig(label + '_convergence' + '.pdf')
+    plt.savefig(label + '_convergence' + '.png')
     plt.show()
 
 plot_convergence(losses, v_s, losses_s, v_s_s, label)
