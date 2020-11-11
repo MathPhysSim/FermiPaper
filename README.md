@@ -11,3 +11,5 @@ A new implementation of a AE-dyna:
 A variant of the ME-TRPO:
 ![ME-TRPO](Figures/ME-TRPO_observables.png)
 ![ME-TRPO](Figures/ME-TRPO_verification.png)
+The evolution:
+![ME-TRPO](Figures/Learning_evolution.png)
