@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 project_directory = 'Data_logging/run_test/-nr_steps_25-cr_lr0.001-crit_it_80-d_0.05-conj_iters_10-n_ep_1-mini_bs_500' \
                     '-m_bs_100-mb_lr_0.0005-sim_steps_2000-m_iter_15-ensnr_5-init_100/'
-project_directory = 'Data_logging/ME_TRPO_stable/2020_10_06_ME_TRPO_stable@FERMI/-nr_steps_15-cr_lr0.0001-crit_it_15-d_0.05-conj_iters_15-n_ep_28-mini_bs_500-m_bs_5-mb_lr_0.001-sim_steps_2000-m_iter_15-ensnr_9-init_45/'
+project_directory = 'Data_logging/ME_TRPO_stable/2020_10_06_ME_TRPO_stable@FERMI/run2/'
 # for file in os.listdir(project_directory):
 #     filename = file
 # print(filename)

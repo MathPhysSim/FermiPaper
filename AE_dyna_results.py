@@ -7,7 +7,7 @@ label = "ME-TRPO"
 # label = "AE-DYNA"
 if label == "ME-TRPO":
     # ME-TRPO results
-    project_directory = 'Data_Experiments/2020_10_06_ME_TRPO_stable@FERMI/-nr_steps_15-cr_lr0.0001-crit_it_15-d_0.05-conj_iters_15-n_ep_28-mini_bs_500-m_bs_5-mb_lr_0.001-sim_steps_2000-m_iter_15-ensnr_9-init_45/'
+    project_directory = 'Data_Experiments/2020_10_06_ME_TRPO_stable@FERMI/run2/'
 else:
     # AE-Dyna results
     project_directory = 'Data_Experiments/2020_11_05_AE_Dyna@FERMI/-nr_steps_25-cr_lr-n_ep_13-m_bs_100-sim_steps_3000-m_iter_35-ensnr_3-init_200/'
